@@ -1,4 +1,4 @@
-package com.example.compradecartera
+package com.example.compradecartera.domain.model
 
 data class UserResponse(
     val amount: Double,

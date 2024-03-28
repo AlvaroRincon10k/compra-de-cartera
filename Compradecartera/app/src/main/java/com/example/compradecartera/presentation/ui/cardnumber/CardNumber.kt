@@ -1,12 +1,11 @@
-package com.example.compradecartera
+package com.example.compradecartera.presentation.ui.cardnumber
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.compradecartera.data.remote.ApiService
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
-import com.example.compradecartera.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CardNumber : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardNumberBinding
+    private var id:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,9 @@ class CardNumber : AppCompatActivity() {
                 val puppies = call.body()
                 runOnUiThread{
                     if(call.isSuccessful){
-                        binding.transactionNumber.setText(puppies?.id.toString())
+                        id = puppies?.id!!
+                        binding.transactionNumber.setText(id)
+                        binding.finalizar.setOnClickListener { FinalizeTransaction(id.toString()) }
                     }else{
                         Toast.makeText(this@CardNumber, "Error", Toast.LENGTH_SHORT).show()
                     }
@@ -49,6 +51,20 @@ class CardNumber : AppCompatActivity() {
                 runOnUiThread {
                     Toast.makeText(this@CardNumber, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     Log.i("error", e.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun FinalizeTransaction(query: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(ApiService::class.java).getFinalizeTransaction("$query")
+            val puppies = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    binding.finalizarTrasaccion.setText(puppies?.message.toString())
+                } else {
+                    Toast.makeText(this@CardNumber, "Error", Toast.LENGTH_SHORT).show()
                 }
             }
         }

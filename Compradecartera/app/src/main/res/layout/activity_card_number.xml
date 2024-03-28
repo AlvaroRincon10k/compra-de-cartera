@@ -48,4 +48,24 @@
         android:layout_marginEnd="16dp"
         android:text="genera Id"/>
 
+    <Button
+        android:id="@+id/finalizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/generarId"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:text="FINALIAR TRASACCION"/>
+
+    <TextView
+        android:id="@+id/finalizarTrasaccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/finalizar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:text="mensaje"/>
+
 </RelativeLayout>
