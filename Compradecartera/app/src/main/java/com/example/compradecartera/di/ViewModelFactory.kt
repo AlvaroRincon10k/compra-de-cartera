@@ -6,7 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.compradecartera.data.remote.ApiService
 import com.example.compradecartera.data.remote.UserDataSource
 import com.example.compradecartera.data.remote.repository.UserRepositoryImpl
-import com.example.compradecartera.domain.usecase.UserUseCase
+import com.example.compradecartera.domain.usecase.user.UserUseCase
 import com.example.compradecartera.presentation.ui.dashboard.DashBoardViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

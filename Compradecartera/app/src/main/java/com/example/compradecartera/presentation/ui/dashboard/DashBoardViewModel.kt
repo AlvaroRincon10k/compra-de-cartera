@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compradecartera.domain.model.UserResponse
-import com.example.compradecartera.domain.usecase.UserUseCase
+import com.example.compradecartera.domain.usecase.user.UserUseCase
 import kotlinx.coroutines.launch
 
 internal class DashBoardViewModel(

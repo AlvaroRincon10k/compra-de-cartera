@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.compradecartera.presentation.ui.cardnumber.CardNumber
 import com.example.compradecartera.databinding.ActivityMainBinding
 import com.example.compradecartera.di.ViewModelFactory
+import com.example.compradecartera.presentation.ui.cardnumber.CardNumber
 
 const val QUERY_NAME: String = "alvaro"
 
