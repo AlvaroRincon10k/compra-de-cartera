@@ -12,6 +12,7 @@ const val QUERY_NAME: String = "alvaro"
 
 class DashBoardActivity : AppCompatActivity() {
 
+    private var amount: Double = 0.0
     private lateinit var binding: ActivityMainBinding
     private val viewModel: DashBoardViewModel by viewModels{
         ViewModelFactory()
@@ -30,14 +31,16 @@ class DashBoardActivity : AppCompatActivity() {
 
     private fun initObserver() {
         viewModel.userLiveData.observe(this) { user->
+            amount = user.amount
             binding.textViewUserName.text = user.name
-            binding.textViewBalance.text = user.amount.toString()
+            binding.textViewBalance.text = amount.toString()
             binding.textViewCardNumber.text = user.card_number
         }
     }
 
     private fun navigateCardNumber() {
         val intent = Intent(this, CardNumber::class.java)
+        intent.putExtra("AMOUNT", amount)
         startActivity(intent)
     }
 }

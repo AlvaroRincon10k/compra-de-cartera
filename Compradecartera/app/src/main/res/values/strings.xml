@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Compra de cartera</string>
+
+    <!-- Textos para la pantalla donde se visualizan los datos del usuario -->
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="user_name">Nombre de Usuario</string>
+    <string name="balance">Saldo:</string>
+    <string name="weight_sign">$$$:</string>
+    <string name="card_number">Número de Tarjeta:</string>
+    <string name="card">XXXX XXXX XXXX XXXX</string>
+    <string name="buy">Comprar Deuda</string>
+
+    <!-- Textos para la pantalla donde se ingresa el monto y el numero de tarjeta -->
+    <string name="title">Compra de Cartera Tarjeta Crédito</string>
+    <string name="title2">Ingrese los datos de sus tarjetas para la Compra de Cartera</string>
+    <string name="recommendation_title">Recuerde tener a la mano el número del producto y el valor a comprar de las tarjetas.</string>
+    <string name="enter_amount">Ingrese el monto a comprar de la tarjeta</string>
+    <string name="amount">$0.00</string>
+    <string name="enter_card_number">Ingrese el número de la tarjeta</string>
+    <string name="enter_card">0000-0000-0000-0000</string>
+    <string name="complete_Transaction">Finalizar transacción</string>
+    <string name="buy_amount">Monto a comprar:</string>
+    <string name="current_balance">Saldo actual:</string>
 </resources>

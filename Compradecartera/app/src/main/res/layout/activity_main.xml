@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Compra de Cartera"
+        android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         android:textStyle="bold" />
@@ -27,7 +27,7 @@
         android:layout_below="@+id/textViewCompraCartera"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="¡Bienvenido!"
+        android:text="@string/welcome"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Saldo:"
+                android:text="@string/balance"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewBalanceTitle"
-                android:text="$$$"
+                android:text="@string/weight_sign"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Número de Tarjeta:"
+                android:text="@string/card_number"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewCardNumberTitle"
-                android:text="XXXX XXXX XXXX XXXX"
+                android:text="@string/card"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
@@ -143,7 +143,7 @@
             android:outlineProvider="background"
             android:outlineSpotShadowColor="#FF4081"
             android:padding="16dp"
-            android:text="Comprar Deuda"
+            android:text="@string/buy"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
     </androidx.cardview.widget.CardView>

@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="16dp"
-        android:text="Compra de Cartera Tarjeta Crédito"
+        android:text="@string/title"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Ingrese los datos de sus tarjetas para la Compra de Cartera"
+                android:text="@string/title2"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -52,7 +52,7 @@
                 android:id="@+id/textViewReminder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recuerde tener a la mano el número del producto y el valor a comprar de las tarjetas."
+                android:text="@string/recommendation_title"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Ingrese el valor a comprar de la tarjeta"
+                android:text="@string/enter_amount"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -72,9 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_rounded_border"
+                android:hint="@string/amount"
                 android:inputType="numberDecimal"
                 android:padding="12dp"
-                android:text="$0.00"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Ingrese el número de la tarjeta"
+                android:text="@string/enter_card_number"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -94,9 +94,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_rounded_border"
+                android:hint="@string/enter_card"
                 android:inputType="number"
+                android:maxLength="16"
+                android:maxLines="1"
                 android:padding="12dp"
-                android:text="0000-0000-0000-0000"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -106,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/background_color"
-                android:text="Finalizar Transacción"
+                android:text="@string/complete_Transaction"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -147,7 +149,7 @@
                     android:id="@+id/textViewSelectedValueTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Valor seleccionado:"
+                    android:text="@string/buy_amount"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -156,7 +158,7 @@
                     android:id="@+id/textViewSelectedValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$0.00"
+                    android:text="@string/amount"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -179,18 +181,22 @@
                     android:id="@+id/textViewAvailableCreditTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cupo disponible:"
+                    android:text="@string/current_balance"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
                 <TextView
                     android:id="@+id/textViewAvailableCredit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$1.203.959,00"
+                    android:text="@string/amount"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
             </LinearLayout>
         </LinearLayout>
 
