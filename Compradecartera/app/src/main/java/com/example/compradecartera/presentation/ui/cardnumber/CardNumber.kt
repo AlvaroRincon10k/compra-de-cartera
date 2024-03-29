@@ -4,14 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
-import com.example.compradecartera.di.ViewModelFactoryTransactionNumber
+import com.example.compradecartera.di.ViewModelFactoryCardNumber
 
 class CardNumber : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardNumberBinding
-    //private lateinit var id:String
+    private lateinit var idTransactionNumber:String
     private val viewModel: CardNumberViewModel by viewModels{
-        ViewModelFactoryTransactionNumber()
+        ViewModelFactoryCardNumber()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,42 +22,20 @@ class CardNumber : AppCompatActivity() {
         initObserverTransactionNumber()
         initObserverFinalizeTransaction()
         viewModel.getTransactionNumber()
-        //viewModel.getFinalizeTransaction(id)
 
-        //binding.generarId.setOnClickListener { transactionNumber() }
+        binding.finalizar.setOnClickListener { viewModel.getFinalizeTransaction(idTransactionNumber) }
     }
 
     private fun initObserverTransactionNumber() {
         viewModel.transactionNumberLiveData.observe(this) { id->
-            binding.transactionNumber.text = id.id.toString()
+            idTransactionNumber = id.id.toString()
+            binding.transactionNumber.text = idTransactionNumber
         }
     }
 
     private fun initObserverFinalizeTransaction() {
-        viewModel.transactionNumberLiveData.observe(this) { id->
-            binding.transactionNumber.text = id.id.toString()
+        viewModel.finalizeTransactionLiveData.observe(this) { message->
+            binding.finalizarTrasaccion.text = message.message
         }
     }
-
-   /*
-    private fun getRetrofitTransaccion(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://api.mocki.io/v2/0ms8mu9j/confirm/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    private fun FinalizeTransaction(query: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofitTransaccion().create(ApiService::class.java).getFinalizeTransaction("$query")
-            val puppies = call.body()
-            runOnUiThread {
-                if (call.isSuccessful) {
-                    binding.finalizarTrasaccion.setText(puppies?.message.toString())
-                } else {
-                    Toast.makeText(this@CardNumber, "Error", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }*/
 }

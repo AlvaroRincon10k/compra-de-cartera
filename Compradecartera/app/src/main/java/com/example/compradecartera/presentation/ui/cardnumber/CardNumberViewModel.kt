@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compradecartera.FinalizeTransactionResponse
 import com.example.compradecartera.TransactionNumberResponse
+import com.example.compradecartera.domain.usecase.cardnumber.FinalizeTransactionUseCase
 import com.example.compradecartera.domain.usecase.cardnumber.TransactionNumberUseCase
 import kotlinx.coroutines.launch
 
-internal class CardNumberViewModel (
-    private val getTransactionNumberUseCase: TransactionNumberUseCase
-    //private val getFinalizeTransactionUseCase: FinalizeTransactionUseCase
+internal class CardNumberViewModel(
+    private val getTransactionNumberUseCase: TransactionNumberUseCase,
+    private val getFinalizeTransactionUseCase: FinalizeTransactionUseCase
 ): ViewModel() {
 
     private val transactionNumberMutableLiveData = MutableLiveData<TransactionNumberResponse>()
@@ -31,7 +32,7 @@ internal class CardNumberViewModel (
         }
     }
 
-    /*fun getFinalizeTransaction(id: String) {
+    fun getFinalizeTransaction(id: String) {
         viewModelScope.launch {
             runCatching {
                 val user = getFinalizeTransactionUseCase.invoke(id)
@@ -40,6 +41,6 @@ internal class CardNumberViewModel (
                 // emitir un eror y mostrarlo
             }
         }
-    }*/
+    }
 
 }
