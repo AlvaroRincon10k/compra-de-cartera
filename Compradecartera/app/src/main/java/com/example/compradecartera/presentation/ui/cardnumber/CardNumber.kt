@@ -1,6 +1,7 @@
 package com.example.compradecartera.presentation.ui.cardnumber
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
@@ -23,19 +24,20 @@ class CardNumber : AppCompatActivity() {
         initObserverFinalizeTransaction()
         viewModel.getTransactionNumber()
 
-        binding.finalizar.setOnClickListener { viewModel.getFinalizeTransaction(idTransactionNumber) }
+        binding.buttonFinalizarTransaccion.setOnClickListener { viewModel.getFinalizeTransaction(idTransactionNumber) }
     }
 
     private fun initObserverTransactionNumber() {
         viewModel.transactionNumberLiveData.observe(this) { id->
             idTransactionNumber = id.id.toString()
-            binding.transactionNumber.text = idTransactionNumber
+            //binding.transactionNumber.text = idTransactionNumber
         }
     }
 
     private fun initObserverFinalizeTransaction() {
         viewModel.finalizeTransactionLiveData.observe(this) { message->
-            binding.finalizarTrasaccion.text = message.message
+            //binding.finalizarTrasaccion.text = message.message
+            Toast.makeText(this, message.message, Toast.LENGTH_SHORT).show()
         }
     }
 }

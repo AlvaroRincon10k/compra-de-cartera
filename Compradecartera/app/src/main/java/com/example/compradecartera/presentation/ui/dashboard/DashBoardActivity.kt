@@ -25,14 +25,14 @@ class DashBoardActivity : AppCompatActivity() {
         initObserver()
         viewModel.getUser(QUERY_NAME)
 
-        binding.comprar.setOnClickListener { navigateCardNumber() }
+        binding.buttonBuyDebt.setOnClickListener { navigateCardNumber() }
     }
 
     private fun initObserver() {
         viewModel.userLiveData.observe(this) { user->
-            binding.name.text = user.name
-            binding.amout.text = user.amount.toString()
-            binding.cardNumber.text = user.card_number
+            binding.textViewUserName.text = user.name
+            binding.textViewBalance.text = user.amount.toString()
+            binding.textViewCardNumber.text = user.card_number
         }
     }
 
