@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -38,6 +39,7 @@ class CardNumberActivity : AppCompatActivity() {
 
         // Botón de finalizar la transacción
         binding.buttonFinalizarTransaccion.setOnClickListener {
+            hideKeyboard()
             validations(binding.editTextValue, binding.editTextCardNumber)
         }
 
@@ -137,5 +139,13 @@ class CardNumberActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    //Función para ocultar el teclado
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        currentFocus?.let { view ->
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }
