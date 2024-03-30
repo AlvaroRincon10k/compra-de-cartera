@@ -147,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:backgroundTint="@color/background_color"
-                android:drawableStart="@drawable/ic_shopping_cart"
                 android:padding="16dp"
                 android:text="@string/buy"
                 android:textColor="@android:color/white"

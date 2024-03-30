@@ -38,7 +38,7 @@ class CardNumber : AppCompatActivity() {
 
         amount = intent.extras?.getDouble("AMOUNT")!!
         binding.textViewAvailableCredit.text = amount.toString()
-        SelectedValue(binding.textViewSelectedValue)
+        SelectedValue(binding.editTextValue)
         addSeparatorFourDigits(binding.editTextCardNumber)
     }
 
