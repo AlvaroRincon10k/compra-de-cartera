@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.example.compradecartera.R
 import com.example.compradecartera.databinding.ActivityMainBinding
 import com.example.compradecartera.di.ViewModelFactory
-import com.example.compradecartera.presentation.ui.cardnumber.CardNumber
+import com.example.compradecartera.presentation.ui.cardnumber.CardNumberActivity
 
 const val QUERY_NAME: String = "alvaro"
 
@@ -43,7 +43,7 @@ class DashBoardActivity : AppCompatActivity() {
     }
 
     private fun navigateCardNumber() {
-        val intent = Intent(this, CardNumber::class.java)
+        val intent = Intent(this, CardNumberActivity::class.java)
         intent.putExtra("AMOUNT", amount)
         startActivity(intent)
     }

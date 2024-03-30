@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ui.cardnumber.CardNumber"
+            android:name=".presentation.ui.cardnumber.CardNumberActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.dashboard.DashBoardActivity"

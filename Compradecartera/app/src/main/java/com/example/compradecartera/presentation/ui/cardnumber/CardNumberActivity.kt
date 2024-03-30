@@ -11,52 +11,38 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
 import com.example.compradecartera.di.ViewModelFactoryCardNumber
 
-class CardNumber : AppCompatActivity() {
+internal const val AMOUNT_KEY= "AMOUNT"
 
-    private var amountBuy: Double = 0.0
-    private var amount: Double = 0.0
+class CardNumberActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardNumberBinding
-    private lateinit var idTransactionNumber: String
     private val viewModel: CardNumberViewModel by viewModels {
         ViewModelFactoryCardNumber()
     }
+
+    private var amount: Double = 0.0
+    private var bin: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCardNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initObserverTransactionNumber()
-        initObserverFinalizeTransaction()
-        initObserverBinChecker()
-        viewModel.getTransactionNumber()
+        initObservers()
 
         binding.buttonFinalizarTransaccion.setOnClickListener {
-            viewModel.getFinalizeTransaction(idTransactionNumber)
+            validations(binding.editTextValue, binding.editTextCardNumber)
         }
 
-        amount = intent.extras?.getDouble("AMOUNT")!!
+        amount = intent.extras?.getDouble(AMOUNT_KEY)!!
         binding.textViewAvailableCredit.text = amount.toString()
         SelectedValue(binding.editTextValue)
         addSeparatorFourDigits(binding.editTextCardNumber)
     }
 
-    private fun initObserverTransactionNumber() {
-        viewModel.transactionNumberLiveData.observe(this) { id ->
-            idTransactionNumber = id.id.toString()
-        }
-    }
-
-    private fun initObserverFinalizeTransaction() {
+    private fun initObservers() {
         viewModel.finalizeTransactionLiveData.observe(this) { message ->
-            val message: String = message.message
-            validations(message)
-        }
-    }
-
-    private fun initObserverBinChecker() {
-        viewModel.finalizeTransactionLiveData.observe(this) { message ->
+            Toast.makeText(this, message.message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -85,24 +71,16 @@ class CardNumber : AppCompatActivity() {
         }
     }
 
-    fun validations(message: String) {
+    fun validations(editTextAmount: EditText, editTextCardNumber: EditText) {
 
         // Obtener el monto a comprar
         val amountBuy = binding.editTextValue.text.toString().toDoubleOrNull()
 
-// Validar que el monto a comprar sea válido y esté dentro del saldo actual del usuario
+        // Validar que el monto a comprar sea válido y esté dentro del saldo actual del usuario
         if (amountBuy == null || amountBuy <= 0) {
-            Toast.makeText(
-                this,
-                "Ingrese un monto válido para la compra.",
-                Toast.LENGTH_SHORT
-            ).show()
+            editTextAmount.error = "Ingrese un monto válido para la compra."
         } else if (amountBuy > amount) {
-            Toast.makeText(
-                this,
-                "El monto a comprar excede el saldo actual del usuario.",
-                Toast.LENGTH_SHORT
-            ).show()
+            editTextAmount.error = ("El monto a comprar excede el saldo actual del usuario.")
         } else {
             // El monto a comprar es válido
             // Obtener el número de tarjeta ingresado
@@ -110,13 +88,10 @@ class CardNumber : AppCompatActivity() {
 
             // Validar la longitud del número de tarjeta
             if (cardNumber.length !in 15..16) {
-                Toast.makeText(
-                    this,
-                    "Ingrese un número de tarjeta válido (15-16 números).",
-                    Toast.LENGTH_SHORT
-                ).show()
+                editTextCardNumber.error = ("Ingrese un número de tarjeta válido (15-16 números).")
             } else {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                val cardNumer =  (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
+                viewModel.getFinalizeTransaction(getBin(cardNumer))
             }
         }
     }

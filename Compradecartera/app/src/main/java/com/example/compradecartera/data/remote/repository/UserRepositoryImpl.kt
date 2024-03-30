@@ -11,11 +11,4 @@ class UserRepositoryImpl(
 ): UserRepository {
 
     override suspend fun getUser(name:String): UserResponse = userDataSource.getUser(name)
-    override suspend fun getTransactionNumber(): TransactionNumberResponse {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getFinalizeTransaction(id: String): FinalizeTransactionResponse {
-        TODO("Not yet implemented")
-    }
 }

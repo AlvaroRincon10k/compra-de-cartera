@@ -19,7 +19,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 UserRepositoryImpl(
                     UserDataSource(
                        apiService =  Retrofit.Builder()
-                            .baseUrl("https://api.mocki.io/v2/0ms8mu9j/user/")
+                            .baseUrl("https://api.mocki.io/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build()
                             .create(ApiService::class.java)
