@@ -3,6 +3,8 @@ package com.example.compradecartera.presentation.ui.cardnumber
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -36,19 +38,19 @@ class CardNumber : AppCompatActivity() {
 
         amount = intent.extras?.getDouble("AMOUNT")!!
         binding.textViewAvailableCredit.text = amount.toString()
-        SelectedValue()
+        SelectedValue(binding.textViewSelectedValue)
+        addSeparatorFourDigits(binding.editTextCardNumber)
     }
 
     private fun initObserverTransactionNumber() {
         viewModel.transactionNumberLiveData.observe(this) { id ->
             idTransactionNumber = id.id.toString()
-            //binding.transactionNumber.text = idTransactionNumber
         }
     }
 
     private fun initObserverFinalizeTransaction() {
         viewModel.finalizeTransactionLiveData.observe(this) { message ->
-            val message:String = message.message
+            val message: String = message.message
             validations(message)
         }
     }
@@ -58,8 +60,8 @@ class CardNumber : AppCompatActivity() {
         }
     }
 
-    private fun SelectedValue() {
-        binding.editTextValue.addTextChangedListener(object : TextWatcher {
+    private fun SelectedValue(textView: TextView) {
+        textView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -73,11 +75,6 @@ class CardNumber : AppCompatActivity() {
             }
 
         })
-    }
-
-    fun cardLength(cardNumber: String): Boolean {
-        val longitud = cardNumber.length
-        return longitud in 15..16
     }
 
     fun getBin(cardNumber: String): String {
@@ -109,7 +106,7 @@ class CardNumber : AppCompatActivity() {
         } else {
             // El monto a comprar es válido
             // Obtener el número de tarjeta ingresado
-            val cardNumber: String = binding.editTextCardNumber.text.toString()
+            val cardNumber: String = (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
 
             // Validar la longitud del número de tarjeta
             if (cardNumber.length !in 15..16) {
@@ -122,5 +119,38 @@ class CardNumber : AppCompatActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun addSeparatorFourDigits(editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            private val SPACE = ' '
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    val cleaned = it.toString().replace(SPACE.toString(), "")
+                    if (cleaned.length > 0 && cleaned.length % 4 == 0) {
+                        val formatted = StringBuilder()
+                        for (i in cleaned.indices) {
+                            if (i % 4 == 0 && i > 0) {
+                                formatted.append(SPACE)
+                            }
+                            formatted.append(cleaned[i])
+                        }
+                        editText.removeTextChangedListener(this)
+                        editText.setText(formatted.toString())
+                        editText.setSelection(formatted.length)
+                        editText.addTextChangedListener(this)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
     }
 }
