@@ -114,6 +114,20 @@
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
                 <Button
                     android:id="@+id/buttonFinalizarTransaccion"
                     android:layout_width="match_parent"

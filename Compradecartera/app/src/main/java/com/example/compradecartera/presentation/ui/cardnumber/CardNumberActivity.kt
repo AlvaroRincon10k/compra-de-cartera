@@ -1,17 +1,21 @@
 package com.example.compradecartera.presentation.ui.cardnumber
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.compradecartera.R
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
 import com.example.compradecartera.di.ViewModelFactoryCardNumber
 
-internal const val AMOUNT_KEY= "AMOUNT"
+internal const val AMOUNT_KEY = "AMOUNT"
 
 class CardNumberActivity : AppCompatActivity() {
 
@@ -28,8 +32,11 @@ class CardNumberActivity : AppCompatActivity() {
         binding = ActivityCardNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.progressBar.indeterminateTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.background_color))
+
         initObservers()
 
+        // Botón de finalizar la transacción
         binding.buttonFinalizarTransaccion.setOnClickListener {
             validations(binding.editTextValue, binding.editTextCardNumber)
         }
@@ -42,6 +49,7 @@ class CardNumberActivity : AppCompatActivity() {
 
     private fun initObservers() {
         viewModel.finalizeTransactionLiveData.observe(this) { message ->
+            binding.progressBar.visibility = View.GONE
             Toast.makeText(this, message.message, Toast.LENGTH_LONG).show()
         }
     }
@@ -84,13 +92,15 @@ class CardNumberActivity : AppCompatActivity() {
         } else {
             // El monto a comprar es válido
             // Obtener el número de tarjeta ingresado
-            val cardNumber: String = (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
+            val cardNumber: String =
+                (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
 
             // Validar la longitud del número de tarjeta
             if (cardNumber.length !in 15..16) {
                 editTextCardNumber.error = ("Ingrese un número de tarjeta válido (15-16 números).")
             } else {
-                val cardNumer =  (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
+                binding.progressBar.visibility = View.VISIBLE
+                val cardNumer = (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
                 viewModel.getFinalizeTransaction(getBin(cardNumer))
             }
         }
