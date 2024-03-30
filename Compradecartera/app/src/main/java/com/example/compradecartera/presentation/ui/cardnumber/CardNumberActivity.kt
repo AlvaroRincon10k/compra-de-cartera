@@ -2,14 +2,16 @@ package com.example.compradecartera.presentation.ui.cardnumber
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.compradecartera.R
@@ -26,14 +28,19 @@ class CardNumberActivity : AppCompatActivity() {
     }
 
     private var amount: Double = 0.0
-    private var bin: String? = null
+    private var finalizeTransaction: Boolean = false
+    private lateinit var title: String
+    private lateinit var titleMessage: String
+    private var cancelable: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCardNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.progressBar.indeterminateTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.background_color))
+        // Se le asigna un color personalizado al progressBar
+        binding.progressBar.indeterminateTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.background_color))
 
         initObservers()
 
@@ -52,7 +59,9 @@ class CardNumberActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.finalizeTransactionLiveData.observe(this) { message ->
             binding.progressBar.visibility = View.GONE
-            Toast.makeText(this, message.message, Toast.LENGTH_LONG).show()
+            validateAlertDialog(message.message)
+            confirmation()
+            if (finalizeTransaction) timerFinish()
         }
     }
 
@@ -73,6 +82,7 @@ class CardNumberActivity : AppCompatActivity() {
         })
     }
 
+    //  Función para extraer el BIN de la tarjeta
     fun getBin(cardNumber: String): String {
         return if (cardNumber.length >= 6) {
             cardNumber.substring(0, 6)
@@ -102,7 +112,9 @@ class CardNumberActivity : AppCompatActivity() {
                 editTextCardNumber.error = ("Ingrese un número de tarjeta válido (15-16 números).")
             } else {
                 binding.progressBar.visibility = View.VISIBLE
-                val cardNumer = (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
+                // Se eliminan los espacios al extraer el número de tarjeta
+                val cardNumer =
+                    (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")
                 viewModel.getFinalizeTransaction(getBin(cardNumer))
             }
         }
@@ -147,5 +159,45 @@ class CardNumberActivity : AppCompatActivity() {
         currentFocus?.let { view ->
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    // Función para crear un AlertDialog
+    private fun confirmation() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setCancelable(cancelable)
+        builder.setMessage(titleMessage)
+        val dialog = builder.create()
+        dialog.show()
+
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            // Finalizar la actividad después de 3 segundos
+            dialog.dismiss()
+        }, 4000)
+    }
+
+    //Validar la respuesta obtenida
+    private fun validateAlertDialog(message: String) {
+        if (message.isNotEmpty()) {
+            cancelable = false
+            finalizeTransaction = true
+            title = message
+            titleMessage = "Te redijéremos a la pantalla principal"
+        } else {
+            cancelable = true
+            finalizeTransaction = false
+            title = "Hubo un error en la transacción"
+            titleMessage = "Inténtalo nuevamente"
+        }
+    }
+
+    // Temporizador para retrasar la finalización de la actividad
+    private fun timerFinish() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            // Finalizar la actividad después de 3 segundos
+            finish()
+        }, 4000) // 3000 milisegundos = 3 segundos
     }
 }
