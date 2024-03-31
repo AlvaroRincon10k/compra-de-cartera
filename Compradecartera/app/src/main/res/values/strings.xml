@@ -6,21 +6,29 @@
     <string name="user_name">Nombre de Usuario</string>
     <string name="balance">Saldo:</string>
     <string name="weight_sign">$$$:</string>
-    <string name="card_number">Número de Tarjeta:</string>
+    <string name="card_number">Número de tarjeta:</string>
     <string name="card">XXXX XXXX XXXX XXXX</string>
-    <string name="buy">Comprar Deuda</string>
-    <string name="buy_debt_button_blocked">Botón comprar deuda bloqueado, esperando respuesta del servicio.</string>
+    <string name="buy_debt_button_blocked">Botón "Compra de cartera" bloqueado, esperando respuesta del servicio.</string>
+    <string name="exit_application">Salir de la aplicación</string>
+    <string name="go_out">¿Estás seguro de que quieres salir?</string>
+    <string name="yeah">Sí</string>
+    <string name="no">No</string>
 
     <!-- Textos para la pantalla donde se ingresa el monto y el numero de tarjeta -->
-    <string name="title">Compra de Cartera Tarjeta Crédito</string>
-    <string name="title2">Ingrese los datos de sus tarjetas para la Compra de Cartera</string>
-    <string name="recommendation_title">Recuerde tener a la mano el número del producto y el valor a comprar de las tarjetas.</string>
-    <string name="enter_amount">Ingrese el monto a comprar de la tarjeta</string>
+    <string name="title">Compra de cartera tarjeta crédito</string>
+    <string name="title2">Ingrese los datos para realizar la compra de cartera.</string>
+    <string name="recommendation_title">Recuerde tener a la mano el número de tarjeta y el valor a comprar.</string>
+    <string name="enter_amount">Ingrese el monto a comprar:</string>
     <string name="amount">$0.00</string>
-    <string name="enter_card_number">Ingrese el número de la tarjeta</string>
+    <string name="enter_card_number">Ingrese el número de la tarjeta:</string>
     <string name="enter_card">0000 0000 0000 0000</string>
     <string name="complete_Transaction">Finalizar transacción</string>
     <string name="buy_amount">Monto a comprar:</string>
     <string name="current_balance">Saldo actual:</string>
-    <string name="end_transaction_button_blocked">Botón finalizar transacción bloqueado, esperando respuesta del servicio.</string>
+    <string name="end_transaction_button_blocked">Botón "Finalizar transacción" bloqueado, esperando respuesta del servicio.</string>
+    <string name="try_again">Inténtalo nuevamente.</string>
+    <string name="title_message">Se efectuará el pago en los próximos 5 días. Te redijéremos a la pantalla principal.</string>
+    <string name="empty_amount">Debe ingresar un monto para realizar la compra de cartera.</string>
+    <string name="greater_amount">El monto a comprar excede el saldo actual del usuario.</string>
+    <string name="validate_credit_card">Ingrese un número de tarjeta válido (15-16 números)</string>
 </resources>

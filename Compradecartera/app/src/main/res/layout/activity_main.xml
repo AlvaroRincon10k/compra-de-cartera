@@ -163,7 +163,7 @@
                 android:layout_margin="16dp"
                 android:backgroundTint="@color/background_color"
                 android:padding="16dp"
-                android:text="@string/buy"
+                android:text="@string/app_name"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 

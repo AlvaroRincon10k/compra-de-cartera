@@ -1,22 +1,20 @@
 package com.example.compradecartera.domain.usecase.cardnumber
 
 import com.example.compradecartera.FinalizeTransactionResponse
-import com.example.compradecartera.TransactionNumberResponse
-import com.example.compradecartera.domain.model.BinCheckerResponse
 import com.example.compradecartera.domain.repository.CardNumberRepository
-import com.example.compradecartera.domain.repository.UserRepository
 
 class BinCheckerUseCase(private val cardNumberRepository: CardNumberRepository) {
 
-    suspend operator fun invoke(bin:String): FinalizeTransactionResponse {
+    suspend operator fun invoke(bin: String): FinalizeTransactionResponse {
         val bin = cardNumberRepository.getBinChecker(bin)
         val countryCapitalize = bin.BIN.country.name.lowercase().capitalize()
         if (bin.BIN.country.name == "COLOMBIA") {
-           val transactionResponse = cardNumberRepository.getTransactionNumber()
-           val finalizeTransactionResponse =  cardNumberRepository.getFinalizeTransaction(transactionResponse.id.toString())
-           return finalizeTransactionResponse.copy(message = "${finalizeTransactionResponse.message} con tu tarjeta de $countryCapitalize")
+            val transactionResponse = cardNumberRepository.getTransactionNumber()
+            val finalizeTransactionResponse =
+                cardNumberRepository.getFinalizeTransaction(transactionResponse.id.toString())
+            return finalizeTransactionResponse.copy(message = "${finalizeTransactionResponse.message} con tu tarjeta de $countryCapitalize")
         } else {
-            error("Tu tarjeta es de $countryCapitalize, por favor intenta con una tarjeta de colombia")
+            error("Tu tarjeta es de $countryCapitalize, por favor intenta con una tarjeta de Colombia.")
         }
     }
 }

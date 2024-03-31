@@ -103,9 +103,9 @@ class CardNumberActivity : AppCompatActivity() {
 
         // Validar que el monto a comprar sea válido y esté dentro del saldo actual del usuario
         if (amountBuy == null || amountBuy <= 0) {
-            editTextAmount.error = "Ingrese un monto válido para la compra."
+            editTextAmount.error = getString(R.string.empty_amount)
         } else if (amountBuy > amount) {
-            editTextAmount.error = ("El monto a comprar excede el saldo actual del usuario.")
+            editTextAmount.error = getString(R.string.greater_amount)
         } else {
             // El monto a comprar es válido
             // Obtener el número de tarjeta ingresado
@@ -114,7 +114,7 @@ class CardNumberActivity : AppCompatActivity() {
 
             // Validar la longitud del número de tarjeta
             if (cardNumber.length !in 15..16) {
-                editTextCardNumber.error = ("Ingrese un número de tarjeta válido (15-16 números).")
+                editTextCardNumber.error = (getString(R.string.validate_credit_card))
             } else {
                 binding.progressBar.visibility = View.VISIBLE
                 // Bloquear el botón
@@ -180,9 +180,9 @@ class CardNumberActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            // Finalizar la actividad después de 3 segundos
+            // Finalizar el AlertDialog después de 6 segundos
             dialog.dismiss()
-        }, 4000)
+        }, 6000)
     }
 
     //Validar la respuesta obtenida
@@ -192,15 +192,14 @@ class CardNumberActivity : AppCompatActivity() {
                 cancelable = true
                 finalizeTransaction = false
                 title = transactionState.messageError
-                titleMessage = "Inténtalo nuevamente"
+                titleMessage = getString(R.string.try_again)
             }
 
             is TransactionState.Success -> {
                 cancelable = false
                 finalizeTransaction = true
                 title = transactionState.message
-                titleMessage =
-                    "Se efectuará el pago en los próximos 5 días. Te redijéremos a la pantalla principal"
+                titleMessage = getString(R.string.title_message)
             }
         }
     }
@@ -209,9 +208,9 @@ class CardNumberActivity : AppCompatActivity() {
     private fun timerFinish() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            // Finalizar la actividad después de 3 segundos
+            // Finalizar la actividad después de 6 segundos
             returnResult()
-        }, 4000) // 3000 milisegundos = 3 segundos
+        }, 6000)
     }
 
     private fun returnResult() {

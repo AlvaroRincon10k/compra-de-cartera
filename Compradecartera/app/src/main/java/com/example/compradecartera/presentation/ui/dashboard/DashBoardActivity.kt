@@ -78,13 +78,13 @@ class DashBoardActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Salir de la aplicación")
-        builder.setMessage("¿Estás seguro de que quieres salir?")
-        builder.setPositiveButton("Sí") { dialog, which ->
+        builder.setTitle(getString(R.string.exit_application))
+        builder.setMessage(getString(R.string.go_out))
+        builder.setPositiveButton(getString(R.string.yeah)) { dialog, which ->
             // Cierra la actividad y sale de la aplicación
             super.onBackPressed()
         }
-        builder.setNegativeButton("No") { dialog, which ->
+        builder.setNegativeButton(getString(R.string.no)) { dialog, which ->
             // Cancela el diálogo y no realiza ninguna acción
             dialog.dismiss()
         }
