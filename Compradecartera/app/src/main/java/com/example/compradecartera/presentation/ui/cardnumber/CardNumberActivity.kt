@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.compradecartera.CustomToast
 import com.example.compradecartera.R
 import com.example.compradecartera.databinding.ActivityCardNumberBinding
 import com.example.compradecartera.di.ViewModelFactoryCardNumber
@@ -61,6 +62,8 @@ class CardNumberActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.transactionStateLiveData.observe(this) {
             binding.progressBar.visibility = View.GONE
+            // Desbloquear el botón
+            binding.buttonFinalizarTransaccion.isEnabled = true
             validateAlertDialog(it)
             confirmation()
             if (finalizeTransaction) timerFinish()
@@ -114,6 +117,9 @@ class CardNumberActivity : AppCompatActivity() {
                 editTextCardNumber.error = ("Ingrese un número de tarjeta válido (15-16 números).")
             } else {
                 binding.progressBar.visibility = View.VISIBLE
+                // Bloquear el botón
+                binding.buttonFinalizarTransaccion.isEnabled = false
+                CustomToast().toast(this, getString(R.string.end_transaction_button_blocked))
                 // Se eliminan los espacios al extraer el número de tarjeta
                 val cardNumer =
                     (binding.editTextCardNumber.text.toString()).replace("\\s".toRegex(), "")

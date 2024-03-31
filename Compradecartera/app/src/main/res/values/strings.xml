@@ -9,6 +9,7 @@
     <string name="card_number">Número de Tarjeta:</string>
     <string name="card">XXXX XXXX XXXX XXXX</string>
     <string name="buy">Comprar Deuda</string>
+    <string name="buy_debt_button_blocked">Botón comprar deuda bloqueado, esperando respuesta del servicio.</string>
 
     <!-- Textos para la pantalla donde se ingresa el monto y el numero de tarjeta -->
     <string name="title">Compra de Cartera Tarjeta Crédito</string>
@@ -21,4 +22,5 @@
     <string name="complete_Transaction">Finalizar transacción</string>
     <string name="buy_amount">Monto a comprar:</string>
     <string name="current_balance">Saldo actual:</string>
+    <string name="end_transaction_button_blocked">Botón finalizar transacción bloqueado, esperando respuesta del servicio.</string>
 </resources>

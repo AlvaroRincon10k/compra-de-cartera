@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.compradecartera.CustomToast
 import com.example.compradecartera.R
 import com.example.compradecartera.databinding.ActivityMainBinding
 import com.example.compradecartera.di.ViewModelFactory
@@ -39,6 +40,9 @@ class DashBoardActivity : AppCompatActivity() {
         initObserver()
         viewModel.getUser(QUERY_NAME)
         binding.progressBar.visibility = View.VISIBLE
+        // Bloquear el botón
+        binding.buttonBuyDebt.isEnabled = false
+        CustomToast().toast(this, getString(R.string.buy_debt_button_blocked))
 
         binding.buttonBuyDebt.setOnClickListener { navigateCardNumber() }
 
@@ -51,6 +55,8 @@ class DashBoardActivity : AppCompatActivity() {
             binding.textViewBalance.text = amount.toString()
             binding.textViewCardNumber.text = user.card_number
             binding.progressBar.visibility = View.GONE
+            // Desbloquear el botón
+            binding.buttonBuyDebt.isEnabled = true
         }
     }
 
@@ -62,7 +68,7 @@ class DashBoardActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.getDoubleExtra(AMOUNT_KEY, amount)?.let {
                 amount -= it
                 binding.textViewBalance.text = amount.toString()
