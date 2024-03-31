@@ -10,12 +10,13 @@ class BinCheckerUseCase(private val cardNumberRepository: CardNumberRepository) 
 
     suspend operator fun invoke(bin:String): FinalizeTransactionResponse {
         val bin = cardNumberRepository.getBinChecker(bin)
-
+        val countryCapitalize = bin.BIN.country.name.lowercase().capitalize()
         if (bin.BIN.country.name == "COLOMBIA") {
            val transactionResponse = cardNumberRepository.getTransactionNumber()
-           return cardNumberRepository.getFinalizeTransaction(transactionResponse.id.toString())
+           val finalizeTransactionResponse =  cardNumberRepository.getFinalizeTransaction(transactionResponse.id.toString())
+           return finalizeTransactionResponse.copy(message = "${finalizeTransactionResponse.message} con tu tarjeta de $countryCapitalize")
         } else {
-            error("Sorry, it is not colombia target")
+            error("Tu tarjeta es de $countryCapitalize, por favor intenta con una tarjeta de colombia")
         }
     }
 }

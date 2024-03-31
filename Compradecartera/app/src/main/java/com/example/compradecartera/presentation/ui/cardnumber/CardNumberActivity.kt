@@ -1,5 +1,7 @@
 package com.example.compradecartera.presentation.ui.cardnumber
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -57,9 +59,9 @@ class CardNumberActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel.finalizeTransactionLiveData.observe(this) { message ->
+        viewModel.transactionStateLiveData.observe(this) {
             binding.progressBar.visibility = View.GONE
-            validateAlertDialog(message.message)
+            validateAlertDialog(it)
             confirmation()
             if (finalizeTransaction) timerFinish()
         }
@@ -178,17 +180,22 @@ class CardNumberActivity : AppCompatActivity() {
     }
 
     //Validar la respuesta obtenida
-    private fun validateAlertDialog(message: String) {
-        if (message.isNotEmpty()) {
-            cancelable = false
-            finalizeTransaction = true
-            title = message
-            titleMessage = "Te redijéremos a la pantalla principal"
-        } else {
-            cancelable = true
-            finalizeTransaction = false
-            title = "Hubo un error en la transacción"
-            titleMessage = "Inténtalo nuevamente"
+    private fun validateAlertDialog(transactionState: TransactionState) {
+        when (transactionState) {
+            is TransactionState.Error -> {
+                cancelable = true
+                finalizeTransaction = false
+                title = transactionState.messageError
+                titleMessage = "Inténtalo nuevamente"
+            }
+
+            is TransactionState.Success -> {
+                cancelable = false
+                finalizeTransaction = true
+                title = transactionState.message
+                titleMessage =
+                    "Se efectuará el pago en los próximos 5 días. Te redijéremos a la pantalla principal"
+            }
         }
     }
 
@@ -197,7 +204,14 @@ class CardNumberActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             // Finalizar la actividad después de 3 segundos
-            finish()
+            returnResult()
         }, 4000) // 3000 milisegundos = 3 segundos
+    }
+
+    private fun returnResult() {
+        val resultIntent = Intent()
+        resultIntent.putExtra(AMOUNT_KEY, binding.editTextValue.text.toString().toDouble())
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
     }
 }

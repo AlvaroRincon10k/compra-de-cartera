@@ -5,26 +5,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compradecartera.FinalizeTransactionResponse
-import com.example.compradecartera.TransactionNumberResponse
-import com.example.compradecartera.domain.model.BinCheckerResponse
 import com.example.compradecartera.domain.usecase.cardnumber.BinCheckerUseCase
-import com.example.compradecartera.domain.usecase.cardnumber.FinalizeTransactionUseCase
 import kotlinx.coroutines.launch
 
 internal class CardNumberViewModel(
     private val getBinCheckernUseCase: BinCheckerUseCase
 ): ViewModel() {
 
-    private val finalizeTransactionMutableLiveData = MutableLiveData<FinalizeTransactionResponse>()
-    val finalizeTransactionLiveData: LiveData<FinalizeTransactionResponse> = finalizeTransactionMutableLiveData
+    private val transactionStateMutableLiveData = MutableLiveData<TransactionState>()
+    val transactionStateLiveData: LiveData<TransactionState> = transactionStateMutableLiveData
 
     fun getFinalizeTransaction(bin: String) {
         viewModelScope.launch {
             runCatching {
                 val user = getBinCheckernUseCase.invoke(bin)
-                finalizeTransactionMutableLiveData.value = user
+                transactionStateMutableLiveData.value = TransactionState.Success(user.message)
             }.getOrElse {
-                finalizeTransactionMutableLiveData.value = FinalizeTransactionResponse(it.message.orEmpty())
+                val message = if (!it.message.isNullOrEmpty()){
+                    it.message
+                } else "Ha ocurrido un error"
+                transactionStateMutableLiveData.value = TransactionState.Error(message.orEmpty())
             }
         }
     }

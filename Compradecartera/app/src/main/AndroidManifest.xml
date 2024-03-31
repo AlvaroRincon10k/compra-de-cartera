@@ -17,7 +17,8 @@
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,10 +27,12 @@
         </activity>
         <activity
             android:name=".presentation.ui.cardnumber.CardNumberActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.ui.dashboard.DashBoardActivity"
-            android:exported="false"></activity>
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
